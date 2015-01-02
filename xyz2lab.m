@@ -1,0 +1,9 @@
+function Lab = xyz2lab(illXYZ, sampleXYZ)
+fXYZ = diag(1 ./ illXYZ) * sampleXYZ;
+posBrighter = fXYZ > 0.008856;
+fXYZ(posBrighter) = fXYZ(posBrighter) .^ (1/3);
+fXYZ(~posBrighter) = fXYZ(~posBrighter) * 7.787 + 16/116;
+L = 116 * fXYZ(2, :) - 16;
+a = 500 * (fXYZ(1, :) - fXYZ(2, :));
+b = 200 * (fXYZ(2, :) - fXYZ(3, :));
+Lab = [L; a; b];
